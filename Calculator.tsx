@@ -1,244 +1,221 @@
-import React, {createElement, useState} from 'react';
-import {Button, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 
+import React, {createElement, useState} from 'react';
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 const App = () => {
+  const [curr, setcurr] = useState(0);
+  const [prev, setPrev] = useState([]);
 
-    const[ans,setAns] = useState(0)
-  const [curr,setcurr]= useState(0)
-  const [prev,setprev]= useState('')
-  
-  
-  
-  const Push = () =>{
-    if (prev === '+'){
-      setAns(ans+curr)
-    }
-    if (prev === '-'){
-      setAns(ans-curr)
-    }
-    if (prev === '*'){
-      setAns(ans*curr)
-    }
-    if (prev === '/'){
-      setAns(ans/curr)
-    }
-    if (prev === ''){
-      setAns(curr)
-    }
-    
+  const evaluate = () => {
+    let expression = [...prev, curr];
+    let total = expression[0];
 
-  }
+    for (let i = 1; i < expression.length; i += 2) {
+      const operator = expression[i];
+      const nextNumber = expression[i + 1];
 
-    const clean =()=>{
-        if(prev === '='){
-          setAns(0)
-          setprev('')
-          setcurr(0)
+      switch (operator) {
+        case '+':
+          total += nextNumber;
+          break;
+        case '-':
+          total -= nextNumber;
+          break;
+        case '*':
+          total *= nextNumber;
+          break;
+        case '/':
+          total /= nextNumber;
+          break;
       }
     }
 
-    const data = [
-    {
-        title:'7',
-        onpress:function(){
-             clean()
-             setcurr(curr*10 + 7)
-        }
-    },
-    {
-        title:'8',
-        onpress:function(){
-             clean()
-             setcurr(curr*10 + 8)
-        }
-    },
-    {
-        title:'9',
-        onpress:function(){
-             clean()
-             setcurr(curr*10 + 9)   
-        }
-    },
-    {
-        title:'+',
-        onpress:function(){
-          Push()
-          setprev('+')
-          setcurr(0)
-        }
-    },
-    {
-        title:'4',
-        onpress:function(){
-              clean()
-             setcurr(curr*10 + 4)  
-        }
-    },
-    {
-        title:'5',
-        onpress:function(){
-              clean()
-             setcurr(curr*10 + 5)  
-        }
-    },
-    {
-        title:'6',
-        onpress:function(){
-             clean()
-             setcurr(curr*10 + 6)   
-        }
-    },
-    {
-        title:'-',
-        onpress:function(){
-            Push()
-          setprev('-')
-          setcurr(0)    
-        }
-    },
-    {
-        title:'1',
-        onpress:function(){
-             clean()
-             setcurr(curr*10 + 1)   
-        }
-    },
-    {
-        title:'2',
-        onpress:function(){
-             clean()
-             setcurr(curr*10 + 2)   
-        }
-    },
-    {
-        title:'3',
-        onpress:function(){
-             clean()
-             setcurr(curr*10 + 3)   
-        }
-    },
-    {
-        title:'*',
-        onpress:function(){
-            Push()
-          setprev('*')
-          setcurr(0)   
-        }
-    },
-    {
-        title:'C',
-        onpress:function(){
-              setAns(0)
-          setprev('')
-          setcurr(0)
-        }
-    },
-    {
-        title:'0',
-        onpress:function(){
-              clean()
-             setcurr(curr*10 + 0)  
-        }
-    },
-    {
-        title:'=',
-        onpress:function(){
-                Push()
-          setprev('=')
-          setcurr(0)
-        }
-    },
-    {
-        title:'/',
-        onpress:function(){
-             Push()
-          setprev('/')
-          setcurr(0)   
-        }
-    },
-    
-]
+    setPrev([]);
+    setcurr(total);
+  };
 
+  const data = [
+    {
+      title: '7',
+      onpress: function () {
+        setcurr(curr * 10 + 7);
+      },
+    },
+    {
+      title: '8',
+      onpress: function () {
+        setcurr(curr * 10 + 8);
+      },
+    },
+    {
+      title: '9',
+      onpress: function () {
+        setcurr(curr * 10 + 9);
+      },
+    },
+    {
+      title: '+',
+      onpress: function () {
+        setPrev([...prev, curr, '+']);
+        setcurr(0);
+      },
+    },
+    {
+      title: '4',
+      onpress: function () {
+        setcurr(curr * 10 + 4);
+      },
+    },
+    {
+      title: '5',
+      onpress: function () {
+        setcurr(curr * 10 + 5);
+      },
+    },
+    {
+      title: '6',
+      onpress: function () {
+        setcurr(curr * 10 + 6);
+      },
+    },
+    {
+      title: '-',
+      onpress: function () {
+        setPrev([...prev, curr, '-']);
+        setcurr(0);
+      },
+    },
+    {
+      title: '1',
+      onpress: function () {
+        setcurr(curr * 10 + 1);
+      },
+    },
+    {
+      title: '2',
+      onpress: function () {
+        setcurr(curr * 10 + 2);
+      },
+    },
+    {
+      title: '3',
+      onpress: function () {
+        setcurr(curr * 10 + 3);
+      },
+    },
+    {
+      title: '*',
+      onpress: function () {
+        setPrev([...prev, curr, '*']);
+        setcurr(0);
+      },
+    },
+    {
+      title: 'C',
+      onpress: function () {
+        setPrev([]);
+        setcurr(0);
+      },
+    },
+    {
+      title: '0',
+      onpress: function () {
+        setcurr(curr * 10 + 0);
+      },
+    },
+    {
+      title: '=',
+      onpress: function () {
+        evaluate();
+      },
+    },
+    {
+      title: '/',
+      onpress: function () {
+        setPrev([...prev, curr, '/']);
+        setcurr(0);
+      },
+    },
+  ];
 
+  function renderButtons(item) {
+    return (
+      <Pressable onPress={item.onpress} style={styles.Buttons}>
+        <View>
+          <Text style={{color: '#AACACB'}}> {item.title} </Text>
+        </View>
+      </Pressable>
+    );
+  }
 
- function renderButtons (item){
-    
-   return <Pressable 
-    onPress = {item.onpress}
-    style= {styles.Buttons}>
-        <View ><Text style={{color:'#AACACB'}}> {item.title} </Text></View>
-        
-    </Pressable>
- }
- 
-  return<View style={styles.container}>
-    <View style={styles.input}><Text style={styles.texti}>{curr}</Text></View>
-    
-    <View style={styles.output}> <Text style={styles.texto}>{ans}</Text></View>
-    <View style={styles.press}>
-      {  data.map((item)=>
-    renderButtons(item)
-      )}
+  function equation(element) {
+    return (
+      <Text style={{color: '#AACACB', fontSize: 30}}>
+        {element}
+      </Text>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.display}>
+        <View style={{flexDirection:'row'}}>{prev.map(element => equation(element))}</View>
+
+        {<Text style={styles.texti}>{curr}</Text>}
+      </View>
+
+      <View style={styles.press}>{data.map(item => renderButtons(item))}</View>
     </View>
-  
- </View>
-
- 
-
-
-
-
-
-
-
-}
+  );
+};
 const styles = StyleSheet.create({
-    Buttons:{
-      flex:1,
-      margin:1,
-      height: 95,
-      width: 100,
-        backgroundColor: '#212121',
-        justifyContent:'center',
-      alignItems:'center',
-
-    },
-    container:{
-        flex:1,
-        justifyContent:'center',
-      alignItems:'center',
-      backgroundColor:'#212121'
-    }  ,
-    press:{
-      flex:4,
-      display:'flex',
-        flexDirection:'row',
-        flexWrap:'wrap',
-        backgroundColor:'#333333'
-
-    },
-    texti:{
-        color:'#AACACB', 
-        fontSize:60
-        
-
-    },
-    texto:{
-        color:'#AACACB', 
-        fontSize:60
-        
-        
-
-    },
-    input:{
-      flex:4,
-      
-      justifyContent:'center'
-    },
-    output:{
-      flex:1
-    }
-    })
+  Buttons: {
+    
+    height: 100,
+    width: 100,
+    backgroundColor: '#212121',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 3,
+  },
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: '#212121',
+    justifyContent: 'space-between',
+  },
+  press: {
+    width: '100%',
+    // flex: 4,
+    // display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: '#333333',
+    justifyContent: 'space-between',
+  },
+  texti: {
+    color: '#AACACB',
+    fontSize: 60,
+    textAlign: 'right',
+  },
+  texto: {
+    color: '#AACACB',
+    fontSize: 60,
+    textAlign: 'right',
+  },
+  display:{justifyContent: 'space-between', 
+    flex: 1,
+    margin:50,
+  
+  }
+});
 
 export default App;

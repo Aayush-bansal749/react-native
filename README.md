@@ -1,7 +1,7 @@
-# react-native:- These run on android react native setup
+# React-Native:- These run on android react native setup
 
-## calculator
+## Calculator
 
-
+## Notes app
 
 

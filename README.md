@@ -3,4 +3,5 @@
 calculator
 
 
-![Screenshot_1749129187](https://github.com/user-attachments/assets/b326d716-092a-48ef-af3b-1641898e39cd)
+
+![Screenshot_1749186994](https://github.com/user-attachments/assets/4663fc5d-d83d-40b9-a3ad-b7b85925c0d9)

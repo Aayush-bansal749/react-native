@@ -1,4 +1,3 @@
-
 import React, {createElement, useState} from 'react';
 import {
   Button,
@@ -33,6 +32,8 @@ const App = () => {
           break;
         case '/':
           total /= nextNumber;
+          break;
+        default:
           break;
       }
     }
@@ -145,9 +146,12 @@ const App = () => {
     },
   ];
 
-  function renderButtons(item) {
+  function renderButtons(item, index) {
     return (
-      <Pressable onPress={item.onpress} style={styles.Buttons}>
+      <Pressable
+        onPress={item.onpress}
+        style={styles.Buttons}
+        key={index.toString()}>
         <View>
           <Text style={{color: '#AACACB'}}> {item.title} </Text>
         </View>
@@ -155,9 +159,9 @@ const App = () => {
     );
   }
 
-  function equation(element) {
+  function equation(element, index) {
     return (
-      <Text style={{color: '#AACACB', fontSize: 30}}>
+      <Text style={{color: '#AACACB', fontSize: 30}} key={index.toString()}>
         {element}
       </Text>
     );
@@ -166,36 +170,35 @@ const App = () => {
   return (
     <View style={styles.container}>
       <View style={styles.display}>
-        <View style={{flexDirection:'row'}}>{prev.map(element => equation(element))}</View>
+        <View style={{flexDirection: 'row'}}>
+          {prev.map((element, index) => equation(element, index))}
+        </View>
 
         {<Text style={styles.texti}>{curr}</Text>}
       </View>
 
-      <View style={styles.press}>{data.map(item => renderButtons(item))}</View>
+      <View style={styles.press}>
+        {data.map((item, index) => renderButtons(item, index))}
+      </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   Buttons: {
-    
     height: 100,
     width: 100,
     backgroundColor: '#212121',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 3,
+    marginTop: 3,
   },
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#212121',
     justifyContent: 'space-between',
   },
   press: {
     width: '100%',
-    // flex: 4,
-    // display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     backgroundColor: '#333333',
@@ -211,11 +214,11 @@ const styles = StyleSheet.create({
     fontSize: 60,
     textAlign: 'right',
   },
-  display:{justifyContent: 'space-between', 
+  display: {
+    justifyContent: 'space-between',
     flex: 1,
-    margin:50,
-  
-  }
+    margin: 50,
+  },
 });
 
 export default App;

@@ -5,29 +5,29 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
 const App = () => {
   const [text, setText] = useState<string[]>([]);
   const [curr, setCurr] = useState('');
-  const ref = useRef<TextInput>(null);
   const [editIndex, setIndex] = useState(-1);
-
+  const ref = useRef<TextInput>(null);
   const addtext = () => {
     if (curr !== '') {
       if (editIndex !== -1) {
         setIndex(-1);
         setText(_texts => {
           return [
-            ..._texts.slice(0, editIndex),
             curr,
-            ..._texts.slice(editIndex + 1),
+            ..._texts.slice(0, editIndex),
+            ..._texts.slice(editIndex + 1)            
           ];
         });
       } else {
         setText(_texts => {
-          return [..._texts, curr];
+          return [curr, ..._texts ];
         });
       }
       setCurr('');
@@ -46,8 +46,10 @@ const App = () => {
       style={styles.textbox} 
       key={index.toString()}>
         <Text 
-        style={styles.text}>{element}</Text>
-        <Pressable
+        style={styles.text}>
+          {element}
+        </Text>
+        <TouchableOpacity
           style={styles.edit}
           onPress={() => {
             setIndex(index);
@@ -55,10 +57,12 @@ const App = () => {
             ref.current?.focus();
           }}>
           <Text>edit</Text>
-        </Pressable>
-        <Pressable style={styles.delete} onPress={() => deleteText(index)}>
+        </TouchableOpacity>
+        <TouchableOpacity 
+        style={styles.delete} 
+        onPress={() => deleteText(index)}>
           <Text>del</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -75,16 +79,18 @@ const App = () => {
       <View style={styles.inputbox}>
         <TextInput
           ref={ref}
+          multiline
           style={styles.input}
           onChangeText={setCurr}
           value={curr}
           autoFocus
+         
         />
-        <Pressable
+        <TouchableOpacity
         style={styles.add} 
         onPress={addtext}>
           <Text style={{color: 'white'}}>+</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );

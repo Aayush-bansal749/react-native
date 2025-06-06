@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#212121',
-    justifyContent: 'space-between',
+    
   },
   press: {
     width: '100%',
@@ -206,13 +206,8 @@ const styles = StyleSheet.create({
   },
   texti: {
     color: '#AACACB',
-    fontSize: 60,
-    textAlign: 'right',
-  },
-  texto: {
-    color: '#AACACB',
-    fontSize: 60,
-    textAlign: 'right',
+     fontSize: 60,
+     textAlign: 'right',
   },
   display: {
     justifyContent: 'space-between',

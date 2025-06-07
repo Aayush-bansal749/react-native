@@ -2,6 +2,6 @@
 
 ## Calculator
 
-## Notes app
+## Notes app - CRUD
 
 

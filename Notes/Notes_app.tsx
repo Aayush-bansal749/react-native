@@ -1,6 +1,6 @@
-import React, {createElement, useRef, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {
-  Pressable,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,25 +9,36 @@ import {
   View,
 } from 'react-native';
 
-const App = () => {
-  const [text, setText] = useState<string[]>([]);
+const Notes = () => {
+  const [text, setText] = useState([]);
   const [curr, setCurr] = useState('');
   const [editIndex, setIndex] = useState(-1);
+
   const ref = useRef<TextInput>(null);
+
+  const selected = useMemo(() => {
+    return text.some(element => element.isselected);
+  }, [text]);
+
+  const icon = index =>
+    text[index].isselected
+      ? require('./images/active.jpeg')
+      : require('./images/inactive.png');
+
   const addtext = () => {
-    if (curr !== '') {
+    if (curr.trim() !== '') {
       if (editIndex !== -1) {
-        setIndex(-1);
         setText(_texts => {
           return [
-            curr,
+            {..._texts[editIndex], value: curr},
             ..._texts.slice(0, editIndex),
-            ..._texts.slice(editIndex + 1)            
+            ..._texts.slice(editIndex + 1),
           ];
         });
+        setIndex(-1);
       } else {
         setText(_texts => {
-          return [curr, ..._texts ];
+          return [{value: curr, isselected: false}, ..._texts];
         });
       }
       setCurr('');
@@ -40,35 +51,59 @@ const App = () => {
     setText(updationtext);
   };
 
-  function displaytexts(element, index) {
-    return (
-      <View 
-      style={styles.textbox} 
-      key={index.toString()}>
-        <Text 
-        style={styles.text}>
-          {element}
-        </Text>
-        <TouchableOpacity
-          style={styles.edit}
-          onPress={() => {
-            setIndex(index);
-            setCurr(text[index]);
-            ref.current?.focus();
-          }}>
-          <Text>edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-        style={styles.delete} 
-        onPress={() => deleteText(index)}>
-          <Text>del</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+  const displaytexts = useCallback(
+    (element, index) => {
+      return (
+        <View style={styles.textbox} key={index.toString()}>
+          <Text style={styles.text}>{element.value}</Text>
+          <TouchableOpacity
+            style={styles.edit}
+            onPress={() => {
+              setIndex(index);
+              setCurr(text[index].value);
+              ref.current?.focus();
+            }}>
+            <Text>edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.delete}
+            onPress={() => {
+              deleteText(index);
+            }}>
+            <Text>del</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.delete}
+            hitSlop={{left: 10, right: 10, top: 5, bottom: 5}}
+            onPress={() => {
+              text[index].isselected = !element.isselected;
+              setText([...text]);
+            }}>
+            <Image style={{height: 22, width: 30}} source={icon(index)} />
+          </TouchableOpacity>
+        </View>
+      );
+    },
+    [text],
+  );
 
   return (
     <View style={styles.container}>
+      {selected && (
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'red',
+            width: 50,
+            alignSelf: 'flex-end',
+            marginRight: 15,
+          }}
+          onPress={() => {
+            setText(_text => _text.filter(note => !note.isselected));
+          }}>
+          <Text>del all</Text>
+        </TouchableOpacity>
+      )}
+
       <ScrollView
         style={styles.display}
         contentContainerStyle={styles.contentContainerStyle}
@@ -84,11 +119,8 @@ const App = () => {
           onChangeText={setCurr}
           value={curr}
           autoFocus
-         
         />
-        <TouchableOpacity
-        style={styles.add} 
-        onPress={addtext}>
+        <TouchableOpacity style={styles.add} onPress={addtext}>
           <Text style={{color: 'white'}}>+</Text>
         </TouchableOpacity>
       </View>
@@ -149,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Notes;

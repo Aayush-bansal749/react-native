@@ -19,10 +19,6 @@ import {
 } from './redux/slice/NotesSlice';
 
 const Notes = () => {
-  // const [text, setText] = useState([]);
-  // const [curr, setCurr] = useState('');
-  // const [editIndex, setIndex] = useState(-1);
-
   const dispatch = useDispatch();
   const {notes, curr} = useSelector(state => state.Texts);
 
@@ -37,32 +33,6 @@ const Notes = () => {
       ? require('./images/active.jpeg')
       : require('./images/inactive.png');
 
-  // const addtext = () => {
-  //   if (curr.trim() !== '') {
-  //     if (editIndex !== -1) {
-  //       setText(_texts => {
-  //         return [
-  //           {..._texts[editIndex], value: curr},
-  //           ..._texts.slice(0, editIndex),
-  //           ..._texts.slice(editIndex + 1),
-  //         ];
-  //       });
-  //       setIndex(-1);
-  //     } else {
-  //       setText(_texts => {
-  //         return [{value: curr, isselected: false}, ..._texts];
-  //       });
-  //     }
-  //     setCurr('');
-  //   }
-  // };
-
-  // const deleteText = index => {
-  //   const updationtext = [...text];
-  //   updationtext.splice(index, 1);
-  //   setText(updationtext);
-  // };
-
   const displaytexts = useCallback(
     (element, index) => {
       return (
@@ -72,8 +42,6 @@ const Notes = () => {
             style={styles.edit}
             onPress={() => {
               dispatch(editText(index));
-              // setIndex(index);
-              // setCurr(text[index].value);
               ref.current?.focus();
             }}>
             <Text>edit</Text>
@@ -109,6 +77,7 @@ const Notes = () => {
             backgroundColor: 'red',
             width: 50,
             alignSelf: 'flex-end',
+            marginTop: 20,
             marginRight: 15,
           }}
           onPress={() => dispatch(deleteAll())}>

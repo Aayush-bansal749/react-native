@@ -1,3 +1,4 @@
 Basic Calculator
 
-![Screenshot_1749186994](https://github.com/user-attachments/assets/4f37b641-83dc-4366-8f09-c565193a5a80)
+
+![Screenshot_1749732356](https://github.com/user-attachments/assets/f1ca108a-5100-4a82-8202-0a826bae888c)

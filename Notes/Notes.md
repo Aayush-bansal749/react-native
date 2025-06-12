@@ -1,3 +1,3 @@
 Notes app- works with CRUD(create update delete) 
+![Screenshot_1749732511](https://github.com/user-attachments/assets/145380c7-1783-4277-86a7-ba37d38f8244)
 
-![Screenshot_1749210986](https://github.com/user-attachments/assets/e99f89d5-27c9-44d7-9923-a1b508ae624b)

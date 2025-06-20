@@ -1,8 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
-import TextReducer from '../slice/NotesSlice';
+import persistedReducer from '../persist/NotesPersist';
+import {persistStore} from 'redux-persist';
 
 export const NotesStore = configureStore({
-  reducer: {
-    Texts: TextReducer,
-  },
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
+
+export const Persistor = persistStore(NotesStore);

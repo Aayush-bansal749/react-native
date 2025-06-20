@@ -1,12 +1,15 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {NotesStore} from './redux/store/NotesStore';
+import {NotesStore, Persistor} from './redux/store/NotesStore';
 import Notes from './Notes';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const NotesProvider = () => {
   return (
     <Provider store={NotesStore}>
-      <Notes />
+      <PersistGate loading={null} persistor={Persistor}>
+        <Notes />
+      </PersistGate>
     </Provider>
   );
 };

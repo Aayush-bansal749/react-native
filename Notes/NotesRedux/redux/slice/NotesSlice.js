@@ -21,6 +21,9 @@ export const TextSlice = createSlice({
     },
     deleteText: (state, action) => {
       state.notes.splice(action.payload, 1);
+      if (state.editIndex !== -1) {
+        state.editIndex = -1;
+      }
     },
     setCurr: (state, action) => {
       state.curr = action.payload;

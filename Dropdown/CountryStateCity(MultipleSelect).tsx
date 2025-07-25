@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BootSplash from 'react-native-bootsplash';
@@ -11,7 +11,6 @@ import {
   TextInput,
 } from 'react-native';
 import axios from 'axios';
-import Config from 'react-native-config';
 
 const RootStack = createStackNavigator();
 
@@ -25,7 +24,6 @@ const HomeScreen = () => {
   const navigation: any = useNavigation();
 
   useEffect(() => {
-    console.log(Config.MY_SECRET);
     axios
       .get('https://countriesnow.space/api/v0.1/countries/')
       .then(response => {
@@ -314,6 +312,7 @@ function App() {
     const hideSplashScreen = async () => {
       await BootSplash.hide({fade: true});
     };
+
     hideSplashScreen();
   }, []);
 

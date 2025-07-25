@@ -22,6 +22,17 @@ const Calci = () => {
         ];
         i -= 1;
       }
+      if (expression[i] == '%') {
+        expression = [
+          ...expression.slice(0, i),
+          '/',
+          100,
+          ...expression.slice(i + 1),
+        ];
+      }
+      // case '%':
+      //     total /= 100;
+      //     break;
     }
     for (let i = 0; i < expression.length; i += 1) {
       const operator = expression[i];
@@ -91,9 +102,7 @@ const Calci = () => {
         case '*':
           total *= nextNumber;
           break;
-        case '%':
-          total /= 100;
-          break;
+
         case '/':
           total /= nextNumber;
           break;
@@ -109,7 +118,7 @@ const Calci = () => {
     if (total % 1 == 0) {
       setcurr(total);
     } else {
-      setcurr(total.toFixed(5));
+      setcurr(Number(total).toFixed(5));
     }
   };
 
@@ -338,7 +347,7 @@ const Calci = () => {
     {
       title: '%',
       onpress: function () {
-        setPrev([...prev, curr, '%']);
+        setPrev([...prev, curr, '%', '*']);
         setcurr('');
         seteq([]);
       },

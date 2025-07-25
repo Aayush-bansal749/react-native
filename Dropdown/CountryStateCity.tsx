@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BootSplash from 'react-native-bootsplash';
 import {
@@ -92,7 +92,13 @@ const HomeScreen = () => {
   const DropDown = (Label, data, value, set, isdisable) => {
     return (
       <View key={Label}>
-        <Text style={{fontSize: 20, paddingLeft: 20, paddingTop: 30}}>
+        <Text
+          style={{
+            fontSize: 20,
+            paddingLeft: 20,
+            paddingTop: 30,
+            color: 'white',
+          }}>
           {Label}
         </Text>
         <Pressable
@@ -144,7 +150,7 @@ const HomeScreen = () => {
     <View
       style={{
         height: '100%',
-        backgroundColor: 'white',
+        backgroundColor: '#212121',
       }}>
       {types.map(item =>
         DropDown(item.Label, item.data, item.value, item.set, item.isdisable),
@@ -176,6 +182,7 @@ const ModalScreen = ({route}) => {
           style={{
             padding: 10,
             fontSize: 23,
+            color: 'white',
           }}>
           {item}
         </Text>
@@ -208,12 +215,13 @@ const ModalScreen = ({route}) => {
         style={{
           height: '52%',
           width: '97%',
-
+          backgroundColor: '#212121',
           alignSelf: 'center',
           borderRadius: 30,
         }}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontSize: 30, padding: 10, paddingTop: 20}}>
+          <Text
+            style={{fontSize: 30, padding: 10, paddingTop: 20, color: 'white'}}>
             {Label}
           </Text>
           <TouchableOpacity
@@ -221,7 +229,7 @@ const ModalScreen = ({route}) => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <Text style={{fontSize: 26, color: '#333333'}}>x</Text>
+            <Text style={{fontSize: 26, color: 'white'}}>x</Text>
           </TouchableOpacity>
         </View>
 
@@ -233,6 +241,7 @@ const ModalScreen = ({route}) => {
               padding: 10,
               borderRadius: 10,
               borderColor: 'lightgrey',
+              backgroundColor: 'white',
             }}
             placeholder={`Search ${Label}`}
             onChangeText={t => {

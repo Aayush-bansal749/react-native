@@ -72,8 +72,19 @@ const Location = () => {
   }, [skipPermissionRequests, authorizationLevel, locationProvider]);
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#212121',
+      }}>
       <TouchableOpacity
+        style={{
+          backgroundColor: 'lightgreen',
+          padding: 10,
+          borderRadius: 5,
+        }}
         onPress={() =>
           Geolocation.getCurrentPosition(
             info => {
@@ -119,11 +130,19 @@ const Location = () => {
             },
           )
         }>
-        <Text>get location</Text>
+        <Text style={{fontSize: 20}}>get location</Text>
       </TouchableOpacity>
-      <Text>Longitude : {info.coords.longitude}</Text>
-      <Text>Lattitude : {info.coords.latitude}</Text>
+      <View style={{paddingVertical: 20}}>
+        <Text style={{color: 'white', fontSize: 15}}>
+          Longitude : {info.coords.longitude}
+        </Text>
+        <Text style={{color: 'white', fontSize: 15}}>
+          Lattitude : {info.coords.latitude}
+        </Text>
+      </View>
+
       <TouchableOpacity
+        style={{backgroundColor: 'lightblue', padding: 10, borderRadius: 5}}
         onPress={() =>
           setinfo({
             coords: {
@@ -132,7 +151,7 @@ const Location = () => {
             },
           })
         }>
-        <Text>remove location</Text>
+        <Text style={{fontSize: 20}}>remove location</Text>
       </TouchableOpacity>
     </View>
   );

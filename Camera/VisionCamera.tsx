@@ -50,7 +50,7 @@ const Camscreen = () => {
   const takePhoto = async () => {
     try {
       const photo = await cameraRef.current?.takePhoto({flash: selectedFlash});
-      console.log(photo);
+
       navigation.navigate('Picture', {photo});
     } catch (error) {
       console.error('Failed to take or save photo:', error);
@@ -60,7 +60,7 @@ const Camscreen = () => {
 
   if (!hasCamPermission || !hasMicPermission) return <PermissionsPage />;
   if (device == null) return <NoCameraDeviceError />;
-  console.log(selectedFlash, selectedFlash === 'off');
+
   return (
     <View style={styles.container}>
       <Camera
@@ -74,7 +74,9 @@ const Camscreen = () => {
       <TouchableOpacity
         style={styles.FlashButton}
         onPress={() => {
-          selectFlash(prev => (prev === 'off' ? 'on' : 'off'));
+          if (selectedCam === 'back') {
+            selectFlash(prev => (prev === 'off' ? 'on' : 'off'));
+          }
         }}>
         {selectedFlash === 'off' ? (
           <Text style={styles.flashButtonOff}>⚡︎</Text>
@@ -101,6 +103,9 @@ const Camscreen = () => {
         style={styles.toggleButton}
         onPress={() => {
           selectCam(prev => (prev === 'back' ? 'front' : 'back'));
+          if (selectedCam === 'back') {
+            selectFlash('off');
+          }
         }}>
         <Text style={styles.flipButton}>⇄</Text>
       </TouchableOpacity>

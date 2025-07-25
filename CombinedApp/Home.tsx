@@ -13,17 +13,6 @@ const Home = () => {
           navigation.navigate('camera');
         }}
       />
-
-      {/* <Button 
-            title="go to calculator"
-            onPress={()=>{
-                    navigation.navigate('Calci')
-            }}/>
-        <Button 
-            title="go to notes"
-            onPress={()=>{
-                    navigation.navigate('Notes')
-            }}/> */}
     </View>
   );
 };
